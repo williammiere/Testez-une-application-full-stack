@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `numdevtest`;
+USE `numdevtest`;
+
 CREATE TABLE `TEACHERS` (
   `id` INT PRIMARY KEY AUTO_INCREMENT,
   `last_name` VARCHAR(40),
