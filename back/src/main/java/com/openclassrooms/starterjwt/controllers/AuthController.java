@@ -32,7 +32,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    AuthController(AuthenticationManager authenticationManager,
+    public AuthController(AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder,
             JwtUtils jwtUtils,
             UserRepository userRepository) {
@@ -75,11 +75,12 @@ public class AuthController {
         }
 
         // Create new user's account
-        User user = new User(signUpRequest.getEmail(),
-                signUpRequest.getLastName(),
-                signUpRequest.getFirstName(),
-                passwordEncoder.encode(signUpRequest.getPassword()),
-                false);
+        User user = new User();
+        user.setEmail(signUpRequest.getEmail());
+        user.setLastName(signUpRequest.getLastName());
+        user.setFirstName(signUpRequest.getFirstName());
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        user.setAdmin(false);
 
         userRepository.save(user);
 

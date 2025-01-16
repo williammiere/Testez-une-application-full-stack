@@ -8,9 +8,15 @@ Git clone:
 
 > git clone https://github.com/OpenClassrooms-Student-Center/P5-Full-Stack-testing
 
+Front-end :
+
 Go inside folder:
 
 > cd yoga
+
+Go instode the front-end:
+
+> cd .\front\
 
 Install dependencies:
 
@@ -51,7 +57,7 @@ By default the admin account is:
 
 Launching e2e test:
 
-> npm run e2e
+> npm run e2e or npx cypress open, select E2E testing, select electron as test browser and launch the "all.cy.ts" test
 
 Generate coverage report (you should launch e2e test before):
 
@@ -63,10 +69,27 @@ Report is available here:
 
 #### Unitary test
 
-Launching test:
+Launching front-end tests:
 
 > npm run test
+
+Launch front-end test coverage:
+
+> npm test -- --coverage
 
 for following change:
 
 > npm run test:watch
+
+
+Back-end :
+
+> cd .\back\
+
+launch tests and Jacoco coverage:
+
+mvn clean install
+
+Open Jacoco coverage :
+
+back -> target -> site -> index.html

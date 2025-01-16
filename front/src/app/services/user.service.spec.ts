@@ -19,4 +19,17 @@ describe('UserService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should get info about the user', () => {
+    service.getById('1').subscribe(user => {
+      expect(user.id).toBe('1');
+    });
+  });
+
+  it('should delete the user', () => {
+    service.delete('1').subscribe(response => {
+      expect(response).toBe('1');
+    });
+  });
+  
 });

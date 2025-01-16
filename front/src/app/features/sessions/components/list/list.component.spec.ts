@@ -13,6 +13,12 @@ describe('ListComponent', () => {
 
   const mockSessionService = {
     sessionInformation: {
+      token: "mockedToken",
+      type: "type",
+      id: 1,
+      username: "yoga@studio.com",
+      firstName: "admin",
+      lastName: "ADMIN",
       admin: true
     }
   }
@@ -32,5 +38,15 @@ describe('ListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get the user\'s infos from the session service', () => {
+    expect(component.user?.token).toEqual("mockedToken");
+    expect(component.user?.type).toEqual("type");
+    expect(component.user?.id).toEqual(1);
+    expect(component.user?.username).toEqual("yoga@studio.com");
+    expect(component.user?.firstName).toEqual("admin");
+    expect(component.user?.lastName).toEqual("ADMIN");
+    expect(component.user?.admin).toEqual(true);
   });
 });
