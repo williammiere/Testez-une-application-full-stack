@@ -67,7 +67,7 @@ Report is available here:
 
 > front/coverage/lcov-report/index.html
 
-#### Unitary test
+#### Tests
 
 Launching front-end tests:
 
