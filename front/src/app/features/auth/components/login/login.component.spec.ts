@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { expect } from '@jest/globals';
 import { SessionService } from 'src/app/services/session.service';
-
 import { LoginComponent } from './login.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DebugElement } from '@angular/core';
@@ -101,7 +100,7 @@ describe('LoginComponent', () => {
 
 
   it('should reject login when wrong input', async () => {
-    email.value = 'yoga@wrong@com';
+    email.value = 'yoga.com';
     email.dispatchEvent(new Event('input'));
     password.value = '';
     password.dispatchEvent(new Event('input'));
