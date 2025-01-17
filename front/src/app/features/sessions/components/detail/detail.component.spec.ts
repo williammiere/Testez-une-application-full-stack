@@ -5,14 +5,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule, } from '@angular/router/testing';
 import { expect } from '@jest/globals'; 
 import { SessionService } from '../../../../services/session.service';
-
 import { DetailComponent } from './detail.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-
 
 describe('DetailComponent', () => {
   let component: DetailComponent;
