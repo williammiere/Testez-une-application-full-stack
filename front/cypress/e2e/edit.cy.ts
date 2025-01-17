@@ -1,5 +1,5 @@
 describe('Edit', () => {
-    let sessions = [
+    let sessions = [ // Preparing the sessions data to mock the API's response
         {
             "id": 1,
             "name": "Test",
@@ -21,20 +21,20 @@ describe('Edit', () => {
             "updatedAt": "2025-01-07T00:00:00.00"
         }
     ]
-    beforeEach(() => {
+    beforeEach(() => { // Before each test, we intercept the API's requests and mock the responses
         cy.intercept('GET', '/api/teacher', {
             body: [
                 { id: 1, firstName: 'Margot', lastName: 'DELAHAYE' },
                 { id: 2, firstName: 'H├®l├¿ne', lastName: 'THIERCELIN' }
             ]
-        }).as('getTeachers');
+        });
 
         cy.intercept('GET', '/api/teacher/1', {
             id: 1, firstName: 'Margot', lastName: 'DELAHAYE'
-        }).as('getTeacher');
+        });
         cy.intercept('GET', '/api/teacher/2', {
             id: 2, firstName: 'H├®l├¿ne', lastName: 'THIERCELIN'
-        }).as('getTeacher');
+        });
         cy.intercept('GET', '/api/session', sessions);
 
         cy.intercept('POST', '/api/auth/login', {
@@ -47,13 +47,13 @@ describe('Edit', () => {
             }
         });
 
-        cy.visit('/login')
-        cy.get('input[formControlName=email]').type("yoga@studio.com")
+        cy.visit('/login') // Visit allows us to go to a specific URL
+        cy.get('input[formControlName=email]').type("yoga@studio.com") // We select object in the DOM and type in it as if we were a user
         cy.get('input[formControlName=password]').type(`${"test!1234"}{enter}{enter}`)
 
     })
     it('should create button then display creation form', () => {
-        sessions.push({
+        sessions.push({ // We add a new session to the sessions array
             "id": 3,
             "name": "New session",
             "date": "2027-01-01T00:00:00.000+00:00",
@@ -63,12 +63,12 @@ describe('Edit', () => {
             "createdAt": "2025-01-07T00:00:00.00",
             "updatedAt": "2025-01-07T00:00:00.00"
         });
-        cy.contains('button', 'Create').click();
-        cy.get('form').should('be.visible');
+        cy.contains('button', 'Create').click(); // "Contains" allows us to select an object by its text content
+        cy.get('form').should('be.visible'); // We check that the form is visible
 
-        cy.url().should('include', '/sessions/create')
+        cy.url().should('include', '/sessions/create') // We check that the URL contains '/sessions/create'
 
-        cy.intercept('POST', '/api/session', {
+        cy.intercept('POST', '/api/session', { // We intercept the POST request to the API and mock the response
             body: {
                 id: 3,
                 name: "New session",
@@ -79,19 +79,19 @@ describe('Edit', () => {
                 createdAt: "2025-01-07T00:00:00.00",
                 updatedAt: "2025-01-07T00:00:00.00"
             },
-        }).as('createSession')
+        });
 
-        cy.get('input[formControlName=name]').type("New session")
+        cy.get('input[formControlName=name]').type("New session") // We fill the form with the new session's data
         cy.get('input[formControlName=date]').type(`2027-01-01`)
         cy.get('mat-select[formControlName=teacher_id]').click()
         cy.get('mat-option').contains('Margot DELAHAYE').click();
         cy.get('textarea[formControlName=description]').type("NEW session")
 
-        cy.intercept('GET', '/api/session', sessions);
-        cy.contains('button', 'Save').click();
+        cy.intercept('GET', '/api/session', sessions); // We intercept the GET request to the API and mock the response
+        cy.contains('button', 'Save').click(); // We click on the "Save" button
 
         cy.url().should('include', '/sessions')
-        cy.get('.mat-snack-bar-container').should('contain', 'Session created !');
+        cy.get('.mat-snack-bar-container').should('contain', 'Session created !'); // We check that the snackbar displays the success message
     })
 
     it('should let the admin delete a session', () => {
@@ -119,7 +119,7 @@ describe('Edit', () => {
                 "updatedAt": "2025-01-07T00:00:00.00"
             }]
         })
-        cy.intercept('GET', '/api/session/1', sessions[0]).as('sessionDetail');
+        cy.intercept('GET', '/api/session/1', sessions[0]);
         cy.get('button').contains('Detail').click()
         cy.get('button').contains('Delete').click()
 
@@ -160,13 +160,13 @@ describe('Edit', () => {
                     "createdAt": "2025-01-07T00:00:00.00",
                     "updatedAt": "2025-01-07T00:00:00.00"
                 }]
-        }).as('updatedSessions')
+        });
         cy.intercept('PUT', '/api/session/1', {
             statusCode: 200,
             body: [sessionUpdated]
         })
 
-        cy.intercept('GET', '/api/session/1', sessions[0]).as('sessionDetail');
+        cy.intercept('GET', '/api/session/1', sessions[0]);
 
         cy.get('button').contains('Edit').click()
 

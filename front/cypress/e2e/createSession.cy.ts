@@ -26,7 +26,7 @@ describe('Creation session test', () => {
             "users": [],
             "createdAt": "2026-01-01T00:00:00.000+00:00",
             "updatedAt": "2026-01-01T00:00:00.000+00:00"
-          }]).as('session');
+          }]);
   
       cy.intercept('GET', '/api/teacher', {
         body: [

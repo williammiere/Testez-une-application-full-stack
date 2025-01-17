@@ -12,10 +12,10 @@ describe('Details', () => {
         }
     ]
     beforeEach(() => {
-        cy.intercept('GET', '/api/session', session).as('sessions');
+        cy.intercept('GET', '/api/session', session);
         cy.intercept('GET', '/api/teacher/1', {
             id: 1, firstName: 'Margot', lastName: 'DELAHAYE'
-        }).as('getTeachers');
+        });
 
         cy.visit('/login')
 
@@ -38,7 +38,7 @@ describe('Details', () => {
     })
     it('should display the session details', () => {
 
-        cy.intercept('GET', '/api/session/1', session[0]).as('sessionDetail');
+        cy.intercept('GET', '/api/session/1', session[0]);
 
         cy.get('button').contains('Detail').click()
         cy.get('h1').should('contain', 'Test');
@@ -54,7 +54,7 @@ describe('Details', () => {
         cy.intercept('POST', '/api/session/1/participate/1', {
             statusCode: 200
         })
-        cy.intercept('GET', '/api/session/1', session[0]).as('sessionDetail');
+        cy.intercept('GET', '/api/session/1', session[0]);
 
         cy.get('button').contains('Detail').click()
         cy.get('button').contains('Participate').click()
@@ -92,7 +92,7 @@ describe('Details', () => {
         cy.intercept('POST', '/api/session/1/unparticipate/1', {
             statusCode: 200
         })
-        cy.intercept('GET', '/api/session/1', session[0]).as('sessionDetail');
+        cy.intercept('GET', '/api/session/1', session[0]);
         cy.get('button').contains('Detail').click()
         cy.get('button').contains('Do not participate').click()
     })
