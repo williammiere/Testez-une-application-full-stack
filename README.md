@@ -44,7 +44,10 @@ https://learning.postman.com/docs/getting-started/importing-and-exporting-data/#
 
 ### MySQL
 
+Install and launch MySQL Configurator and create a database names "numdevtest"
+
 SQL script for creating the schema is available `ressources/sql/script.sql`
+Open the MySQL commande line console and type : source <your path to>/ressources/sql/script.sql
 
 By default the admin account is:
 - login: yoga@studio.com
