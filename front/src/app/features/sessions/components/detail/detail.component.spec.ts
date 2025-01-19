@@ -12,12 +12,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 
-describe('DetailComponent', () => {
+describe('DetailComponent integration test suite', () => {
   let component: DetailComponent;
-  let fixture: ComponentFixture<DetailComponent>;
-  let service: SessionService;
+  let fixture: ComponentFixture<DetailComponent>; // ComponentFixture used to create an instance of the component under test.
 
-  let mockSessionService = {
+  let mockSessionService = { // Mocked SessionService
     sessionInformation: {
       admin: true,
       id: 1,
@@ -25,7 +24,7 @@ describe('DetailComponent', () => {
   };
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({ // Configuring the module with the necessary imports, declarations, and providers.
       imports: [
         RouterTestingModule,
         HttpClientModule,
@@ -40,10 +39,10 @@ describe('DetailComponent', () => {
       declarations: [DetailComponent],
       providers: [{ provide: SessionService, useValue: mockSessionService }],
     }).compileComponents();
-    fixture = TestBed.createComponent(DetailComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(DetailComponent); // Creating an instance of the component under test.
+    component = fixture.componentInstance; // Getting the component instance.
 
-    component.session = {
+    component.session = { // Mocked session object.
       id: 1,
       name: 'Session 1',
       description: 'Description 1',
@@ -52,7 +51,7 @@ describe('DetailComponent', () => {
       users: [1, 2],
     };
 
-    fixture.detectChanges();
+    fixture.detectChanges(); // Triggering change detection.
   });
 
   it('should create', () => {
@@ -61,24 +60,24 @@ describe('DetailComponent', () => {
 
   it('should display session information correctly', () => {
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Session 1');
-    expect(compiled.querySelector('.description').textContent).toContain(
+    const compiled = fixture.nativeElement; // Getting the compiled HTML.
+    expect(compiled.querySelector('h1').textContent).toContain('Session 1'); // Checking if the session name is displayed.
+    expect(compiled.querySelector('.description').textContent).toContain( // Checking if the session description is displayed.
       'Description 1'
     );
   });
 
-  it('should display delete button but not participate button if user is admin', () => {
+  it('should display delete button but not the participate button if user is admin', () => {
 
-    const deleteButton = fixture.nativeElement.querySelector('#deleteButton');
-    expect(deleteButton).toBeTruthy();
+    const deleteButton = fixture.nativeElement.querySelector('#deleteButton'); // Getting the delete button.
+    expect(deleteButton).toBeTruthy(); // Checking if the delete button is displayed.
 
-    const participateButton = fixture.nativeElement.querySelector('#participateButton');
-    expect(participateButton).toBeFalsy();
+    const participateButton = fixture.nativeElement.querySelector('#participateButton'); // Getting the participate button.
+    expect(participateButton).toBeFalsy(); // Checking if the participate button is not displayed.
   });
 
-  it('should display participate button but not delete button if user is not admin', () => {
-    component.isAdmin = false;
+  it('should display participate button but not the delete button if user is not admin', () => {
+    component.isAdmin = false; // Setting the isAdmin property to false.
 
     fixture.detectChanges();
 
@@ -90,14 +89,14 @@ describe('DetailComponent', () => {
   });
 
   it('should delete session and display the delete message', () => {
-    const deleteSpy = jest.spyOn(component, 'delete');
+    const deleteSpy = jest.spyOn(component, 'delete'); // Spying on the delete method.
 
     fixture.detectChanges();
 
     const deleteButton = fixture.nativeElement.querySelector('#deleteButton');
-    deleteButton.click();
+    deleteButton.click(); // Triggering the click event on the delete button.
 
-    expect(deleteSpy).toHaveBeenCalled();
+    expect(deleteSpy).toHaveBeenCalled(); // Checking if the delete method has been called.
   });
 
   it('should participate in session', () => {

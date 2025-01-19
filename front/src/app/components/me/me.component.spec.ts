@@ -12,7 +12,7 @@ import { of } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 
-describe('MeComponent', () => {
+describe('MeComponent integration test', () => {
   let component: MeComponent;
   let fixture: ComponentFixture<MeComponent>;
 

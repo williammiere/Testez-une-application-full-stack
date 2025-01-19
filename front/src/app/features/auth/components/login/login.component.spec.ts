@@ -16,7 +16,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 
-describe('LoginComponent', () => {
+describe('LoginComponent test suite', () => {
   let component: LoginComponent;
   let fixtureLogin: ComponentFixture<LoginComponent>;
   let router: Router;
@@ -65,20 +65,20 @@ describe('LoginComponent', () => {
 
 
   it('should log and allow an user to navigate on the sessions list', async () => {
-    jest.spyOn(router, 'navigate').mockImplementation();
+    jest.spyOn(router, 'navigate').mockImplementation(); // We mock the router navigate method
 
     email.value = 'yoga@studio.com';
     email.dispatchEvent(new Event('input'));
     password.value = 'test!1234';
     password.dispatchEvent(new Event('input'));
 
-    loginForm.triggerEventHandler('ngSubmit', null);
-    await fixtureLogin.whenStable();
-    fixtureLogin.detectChanges();
+    loginForm.triggerEventHandler('ngSubmit', null); // TriggerEventHandler is a utility function that triggers an event on a DebugElement, 'ngSubmit' is the event name and null is the event data
+    await fixtureLogin.whenStable(); // We wait for the promise to resolve
+    fixtureLogin.detectChanges(); // We detect the changes
 
-    const req = httpTestingController.expectOne('api/auth/login');
+    const req = httpTestingController.expectOne('api/auth/login'); // We expect a request to the login endpoint
 
-    req.flush({
+    req.flush({ // Flush is a function that sends a response to the request
       token: 'mockedToken',
       type: 'type',
       id: 1,
@@ -95,7 +95,7 @@ describe('LoginComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/sessions']);
 
 
-    httpTestingController.verify();
+    httpTestingController.verify(); // Verifies that all the requests have been handled
   });
 
 

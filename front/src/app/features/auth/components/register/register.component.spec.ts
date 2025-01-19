@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
 
-describe('LoginComponent integration test suites', () => {
+describe('RegisterComponent integration test suites', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
   let authService: AuthService;

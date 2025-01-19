@@ -19,7 +19,7 @@ import { DebugElement } from '@angular/core';
 import { Session } from '../../interfaces/session.interface';
 import { By } from '@angular/platform-browser';
 
-describe('FormComponent', () => {
+describe('FormComponent integration test suite', () => {
   let component: FormComponent;
   let fixture: ComponentFixture<FormComponent>;
 
@@ -93,7 +93,7 @@ describe('FormComponent', () => {
 
     beforeEach(() => {
       //@ts-ignore
-      router.currentUrlTree = router.parseUrl('/sessions/create');
+      router.currentUrlTree = router.parseUrl('/sessions/create'); // We mock the currentUrlTree to return '/sessions/create'
       name = fixture.debugElement.query(By.css('input[formControlName="name"]'));
       date = fixture.debugElement.query(By.css('input[formControlName="date"]'));
       teacher = fixture.debugElement.query(By.css('mat-select[formControlName="teacher_id"]'));
@@ -139,14 +139,14 @@ describe('FormComponent', () => {
 
   describe('Update session', () => {
 
-    beforeEach(async () => {
+    beforeEach(async () => { // "@ts-ignore" is used to ignore the error "Property 'currentUrlTree' does not exist on type 'Router'"
       //@ts-ignore
       router.currentUrlTree = router.parseUrl('/sessions/update/1');
 
-      jest.spyOn(activatedRoute.snapshot.paramMap, 'get').mockReturnValue('1');
-      fixture = TestBed.createComponent(FormComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
+      jest.spyOn(activatedRoute.snapshot.paramMap, 'get').mockReturnValue('1'); // We mock the ActivatedRoute snapshot to return '1' when the get method is called
+      fixture = TestBed.createComponent(FormComponent); // We create the FormComponent
+      component = fixture.componentInstance; // We get the component instance
+      fixture.detectChanges(); // We detect the changes
     });
 
     it('should show the update form', () => {

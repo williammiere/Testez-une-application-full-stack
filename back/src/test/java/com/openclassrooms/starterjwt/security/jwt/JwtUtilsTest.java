@@ -46,14 +46,14 @@ public class JwtUtilsTest {
     @Test
     void testGenerateJwtToken() {
         String mockUsername = "test";
-        when(authentication.getPrincipal()).thenReturn(userDetailsImpl);
-        when(userDetailsImpl.getUsername()).thenReturn(mockUsername);
+        when(authentication.getPrincipal()).thenReturn(userDetailsImpl); // Mock the getPrincipal method
+        when(userDetailsImpl.getUsername()).thenReturn(mockUsername); // Mock the getUsername method
 
-        String resToken = jwtUtils.generateJwtToken(authentication);
+        String resToken = jwtUtils.generateJwtToken(authentication); // Call the method to test
 
         assertNotNull(resToken);
 
-        String parsedResToken = Jwts.parser()
+        String parsedResToken = Jwts.parser() // Parse the token
             .setSigningKey(jwtSecret)
             .parseClaimsJws(resToken)
             .getBody()
@@ -61,8 +61,8 @@ public class JwtUtilsTest {
         
         assertEquals(mockUsername, parsedResToken);
 
-        verify(authentication).getPrincipal();
-        verify(userDetailsImpl).getUsername();
+        verify(authentication).getPrincipal(); // Verify that the getPrincipal method was called
+        verify(userDetailsImpl).getUsername(); // Verify that the getUsername method was called
     }
 
     @Test

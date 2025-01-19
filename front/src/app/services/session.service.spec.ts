@@ -8,8 +8,8 @@ describe('SessionService', () => {
   let service: SessionService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SessionService);
+    TestBed.configureTestingModule({}); // TestBed is a utility provided by Angular that allows us to configure and create an Angular testing module
+    service = TestBed.inject(SessionService); // We inject the service we want to test
   });
 
   it('should be created', () => {

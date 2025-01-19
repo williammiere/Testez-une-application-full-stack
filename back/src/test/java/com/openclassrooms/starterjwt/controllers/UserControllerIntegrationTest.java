@@ -46,7 +46,7 @@ public class UserControllerIntegrationTest {
 
         UserDto expectedUserDto = userMapper.toDto(user);
 
-        mockMvc.perform(get("/api/user/" + user.getId())
+        mockMvc.perform(get("/api/user/" + user.getId()) // Sends a GET request to the specified URL with the user id
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email", is(expectedUserDto.getEmail())))
